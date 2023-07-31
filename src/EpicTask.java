@@ -1,17 +1,17 @@
 import java.util.ArrayList;
 
 public class EpicTask extends Task{
-    ArrayList<Integer> idSubTasks;
+    ArrayList<SubTask> subTasks;
 
-    public EpicTask(String name, String details, int status, ArrayList<Integer> idSubTasks) {
+    public EpicTask(String name, String details, int status, ArrayList<SubTask> idSubTasks) {
         super(name, details, status);
-        this.idSubTasks = idSubTasks;
+        this.subTasks = idSubTasks;
     }
 
     @Override
     public String toString() {
         return "EpicTask{" +
-                "idSubTasks=" + idSubTasks +
+                "idSubTasks=" + subTasks +
                 ", name='" + name + '\'' +
                 ", details='" + details + '\'' +
                 ", status=" + status +
