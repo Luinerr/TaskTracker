@@ -1,19 +1,34 @@
+import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
-        Tasks tasks = new Tasks();
+        Manager manager = new Manager();
         Task task = new Task("name", "abc", 1);
-        tasks.createTask(1, task);
+        manager.createTask(1, task);
         task = new Task("name1", "abc1", 1);
-        tasks.createTask(1, task);
+        manager.createTask(1, task);
         task = new Task("name2", "abc2", 1);
-        tasks.createTask(1, task);
+        manager.createTask(1, task);
         task = new Task("name3", "abc3", 1);
-        tasks.createTask(1, task);
-        tasks.takeDataTask(1);
-        tasks.deleteById(1, 2);
-        tasks.takeDataTask(1);
-        tasks.removeAllDataTask(1);
-        tasks.takeDataTask(1);
+        manager.createTask(1, task);
+        manager.takeDataTask(1);
+        manager.deleteById(1, 2);
+        manager.takeDataTask(1);
+        manager.removeAllDataTask(1);
+        manager.takeDataTask(1);
+        EpicTask epicTask = new EpicTask("name", "abc", 1);
+
+        SubTask subTask = new SubTask("sub1", "123", 1);
+        SubTask subTask1 = new SubTask("sub2", "123", 1);
+        ArrayList<SubTask> sub = new ArrayList<>();
+        sub.add(subTask);
+        sub.add(subTask1);
+        manager.createTask(3, epicTask);
+        epicTask.setSubTasks(sub, manager.takeId(3, epicTask));
+
+
+        manager.createTask(2, subTask);
+        manager.createTask(2, subTask1);
 
         /*
         Task task = new Task("name", "abc", 1);

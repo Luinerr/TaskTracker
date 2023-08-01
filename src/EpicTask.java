@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
 public class EpicTask extends Task{
-    ArrayList<SubTask> subTasks;
+    protected ArrayList<SubTask> subTasks;
 
-    public EpicTask(String name, String details, int status, ArrayList<SubTask> idSubTasks) {
+    public EpicTask(String name, String details, int status) {
         super(name, details, status);
-        this.subTasks = idSubTasks;
+        subTasks = new ArrayList<>();
     }
 
     @Override
@@ -18,4 +18,10 @@ public class EpicTask extends Task{
                 '}';
     }
 
+    public void setSubTasks(ArrayList<SubTask> subTasks, int id) {
+        this.subTasks = subTasks;
+        for (SubTask item : subTasks) {
+            item.setIdEpic(id);
+        }
+    }
 }

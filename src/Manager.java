@@ -1,17 +1,17 @@
 import java.util.HashMap;
 
-public class Tasks {
+public class Manager {
     private int taskId = 1;
-    HashMap<Integer, Task> dataTask;
-    HashMap<Integer, SubTask> dataSubTask;
-    HashMap<Integer, EpicTask> dataEpicTask;
-    Tasks() {
+    protected HashMap<Integer, Task> dataTask;
+    protected HashMap<Integer, SubTask> dataSubTask;
+    protected HashMap<Integer, EpicTask> dataEpicTask;
+    Manager() {
         dataTask = new HashMap<>();
         dataSubTask = new HashMap<>();
         dataEpicTask = new HashMap<>();
     }
 
-    void takeDataTask(int item) {
+    public void takeDataTask(int item) {
         if (item == 1 || !dataTask.isEmpty()) {
             for (Integer integer : dataTask.keySet()) {
                 System.out.println(dataTask.get(integer).toString());
@@ -29,7 +29,7 @@ public class Tasks {
         }
     }
 
-    void removeAllDataTask(int item) {
+    public void removeAllDataTask(int item) {
         if (item == 1 || !dataTask.isEmpty()) {
             dataTask.clear();
         } else if (item == 2 || !dataSubTask.isEmpty()) {
@@ -41,7 +41,7 @@ public class Tasks {
         }
     }
 
-    String getById(int item, int id) {
+    public String getById(int item, int id) {
         if (item == 1 || !dataTask.isEmpty()) {
             if (dataTask.containsKey(id)) {
                 return dataTask.get(id).toString();
@@ -57,7 +57,7 @@ public class Tasks {
         }
         return "";
     }
-    void deleteById(int item, int id) {
+    public void deleteById(int item, int id) {
         if (item == 1 || !dataTask.isEmpty()) {
             if (dataTask.containsKey(id)) {
                 dataTask.remove(id);
@@ -75,7 +75,7 @@ public class Tasks {
         }
     }
 
-    String status(int statusId) {
+    public String status(int statusId) {
         if (statusId == 1) {
             return "NEW";
         } else if (statusId == 2) {
@@ -86,7 +86,7 @@ public class Tasks {
         return "";
     }
 
-    void createTask(int item, Object obj) {
+    public void createTask(int item, Object obj) {
         if (item == 1) {
             dataTask.put(taskId, (Task) obj);
             taskId++;
@@ -99,5 +99,34 @@ public class Tasks {
         } else {
             return;
         }
+    }
+
+    int takeId(int item, Object obj) {
+        
+        if (item == 1) {
+            for (int i : dataTask.keySet()) {
+                if (dataTask.get(i).equals(obj)) {
+                    return i;
+                }
+                return 0;
+            }
+        } else if (item == 2) {
+            for (int i : dataSubTask.keySet()) {
+                if(dataSubTask.get(i).equals(obj)) {
+                    return i;
+                }
+                return 0;
+            }
+        } else if (item == 3) {
+            for (int i : dataEpicTask.keySet()) {
+                if(dataEpicTask.get(i).equals(obj)) {
+                    return i;
+                }
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+        return 0;
     }
 }
