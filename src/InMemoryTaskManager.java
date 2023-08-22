@@ -1,17 +1,19 @@
+import Tasks.*;
 import java.util.HashMap;
 
-public class Manager {
+public class InMemoryTaskManager implements TaskManager {
     private int taskId = 1;
     protected HashMap<Integer, Task> dataTask;
     protected HashMap<Integer, SubTask> dataSubTask;
     protected HashMap<Integer, EpicTask> dataEpicTask;
-    Manager() {
+    InMemoryTaskManager() {
         dataTask = new HashMap<>();
         dataSubTask = new HashMap<>();
         dataEpicTask = new HashMap<>();
     }
 
-    public void takeDataTask(int item) {
+    @Override
+    public void takeAllDataTask(int item) {
         if (item == 1 || !dataTask.isEmpty()) {
             for (Integer integer : dataTask.keySet()) {
                 System.out.println(dataTask.get(integer).toString());
@@ -29,6 +31,7 @@ public class Manager {
         }
     }
 
+    @Override
     public void removeAllDataTask(int item) {
         if (item == 1 || !dataTask.isEmpty()) {
             dataTask.clear();
@@ -41,6 +44,7 @@ public class Manager {
         }
     }
 
+    @Override
     public String getById(int item, int id) {
         if (item == 1 || !dataTask.isEmpty()) {
             if (dataTask.containsKey(id)) {
@@ -57,6 +61,8 @@ public class Manager {
         }
         return "";
     }
+
+    @Override
     public void deleteById(int item, int id) {
         if (item == 1 || !dataTask.isEmpty()) {
             if (dataTask.containsKey(id)) {
@@ -75,6 +81,7 @@ public class Manager {
         }
     }
 
+
     public String status(int statusId) {
         if (statusId == 1) {
             return "NEW";
@@ -86,6 +93,7 @@ public class Manager {
         return "";
     }
 
+    @Override
     public void createTask(int item, Object obj) {
         if (item == 1) {
             dataTask.put(taskId, (Task) obj);
@@ -101,7 +109,8 @@ public class Manager {
         }
     }
 
-    int takeId(int item, Object obj) {
+    @Override
+    public int takeId(int item, Object obj) {
         
         if (item == 1) {
             for (int i : dataTask.keySet()) {
@@ -128,5 +137,10 @@ public class Manager {
             return 0;
         }
         return 0;
+    }
+
+    @Override
+    public void takeSubTaskOfEpic() {
+
     }
 }
