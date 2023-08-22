@@ -1,17 +1,19 @@
+package Tasks;
+
 public class Task {
     protected String name;
     protected String details;
     protected int status;
 
-    public Task(String name, String details, int status) {
+    public Task(String name, String details) {
         this.name = name;
         this.details = details;
-        this.status = status;
+        this.status = 1;
     }
 
     @Override
     public String toString() {
-        return "Task{" +
+        return "Tasks.Task{" +
                 "name='" + name + '\'' +
                 ", details='" + details + '\'' +
                 ", status=" + status +
