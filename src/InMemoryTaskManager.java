@@ -37,19 +37,6 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void removeAllDataTask(int item) {
-        if (item == 1 || !dataTask.isEmpty()) {
-            dataTask.clear();
-        } else if (item == 2 || !dataSubTask.isEmpty()) {
-            dataSubTask.clear();
-        } else if (item == 3 || !dataEpicTask.isEmpty()) {
-            dataEpicTask.clear();
-        } else {
-            return;
-        }
-    }
-
-    @Override
     public String getById(int item, int id) {
         if (item == 1 || !dataTask.isEmpty()) {
             if (dataTask.containsKey(id)) {
@@ -68,6 +55,19 @@ public class InMemoryTaskManager implements TaskManager {
             }
         }
         return "";
+    }
+
+    @Override
+    public void removeAllDataTask(int item) {
+        if (item == 1 || !dataTask.isEmpty()) {
+            dataTask.clear();
+        } else if (item == 2 || !dataSubTask.isEmpty()) {
+            dataSubTask.clear();
+        } else if (item == 3 || !dataEpicTask.isEmpty()) {
+            dataEpicTask.clear();
+        } else {
+            return;
+        }
     }
 
     @Override
@@ -148,7 +148,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public ArrayList<SubTask> takeSubTaskOfEpic(EpicTask epicTask) {
-        return epicTask.getIdSubTasks(epicTask);
+        return epicTask.getSubTasks(epicTask);
     }
 
     @Override

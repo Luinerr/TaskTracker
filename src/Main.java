@@ -43,6 +43,7 @@ public class Main {
         System.out.println(inMemoryTaskManager.getById(3, 5));
 
         inMemoryTaskManager.takeAllDataTask(2);
+        System.out.println(inMemoryTaskManager.takeId(3, epicTask));
 
         inMemoryTaskManager.takeAllDataTask(3);
 
