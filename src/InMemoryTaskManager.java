@@ -2,30 +2,33 @@ import Tasks.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class InMemoryTaskManager implements TaskManager {
     private int taskId = 1;
     private HashMap<Integer, Task> dataTask;
     private HashMap<Integer, SubTask> dataSubTask;
     private HashMap<Integer, EpicTask> dataEpicTask;
+    private List<Task> history;
     InMemoryTaskManager() {
         dataTask = new HashMap<>();
         dataSubTask = new HashMap<>();
         dataEpicTask = new HashMap<>();
+        history = new ArrayList<>();
     }
 
     @Override
     public void takeAllDataTask(int item) {
         if (item == 1 || !dataTask.isEmpty()) {
-            for (Integer integer : dataTask.keySet()) {
+            for (int integer : dataTask.keySet()) {
                 System.out.println(dataTask.get(integer).toString());
             }
         } else if (item == 2 || !dataSubTask.isEmpty()) {
-            for (Integer integer : dataSubTask.keySet()) {
+            for (int integer : dataSubTask.keySet()) {
                 System.out.println(dataSubTask.get(integer).toString());
             }
         } else if (item == 3 || !dataEpicTask.isEmpty()) {
-            for (Integer integer : dataEpicTask.keySet()) {
+            for (int integer : dataEpicTask.keySet()) {
                 System.out.println(dataEpicTask.get(integer).toString());
             }
         } else {
@@ -50,14 +53,17 @@ public class InMemoryTaskManager implements TaskManager {
     public String getById(int item, int id) {
         if (item == 1 || !dataTask.isEmpty()) {
             if (dataTask.containsKey(id)) {
+                history.add(dataTask.get(id));
                 return dataTask.get(id).toString();
             }
         } else if (item == 2 || !dataSubTask.isEmpty()) {
             if (dataSubTask.containsKey(id)) {
+                history.add(dataSubTask.get(id));
                 return dataSubTask.get(id).toString();
             }
         } else if (item == 3 || !dataEpicTask.isEmpty()) {
             if (dataEpicTask.containsKey(id)) {
+                history.add(dataEpicTask.get(id));
                 return dataEpicTask.get(id).toString();
             }
         }
@@ -146,7 +152,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void getHistory() {
-
+    public List<Task> getHistory() {
+        return history;
     }
 }

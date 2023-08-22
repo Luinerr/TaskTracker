@@ -13,6 +13,11 @@ public class Main {
         inMemoryTaskManager.createTask(1, task);
         task = new Task("name3", "abc3");
         inMemoryTaskManager.createTask(1, task);
+        inMemoryTaskManager.getById(1, 1);
+        inMemoryTaskManager.getById(1, 2);
+        inMemoryTaskManager.getById(1, 1);
+        inMemoryTaskManager.getById(1, 1);
+
         inMemoryTaskManager.takeAllDataTask(1);
         inMemoryTaskManager.deleteById(1, 2);
         inMemoryTaskManager.takeAllDataTask(1);
@@ -26,15 +31,22 @@ public class Main {
         sub.add(subTask);
         sub.add(subTask1);
 
+
+
         inMemoryTaskManager.createTask(3, epicTask);
         epicTask.setSubTasks(sub, inMemoryTaskManager.takeId(3, epicTask));
 
-
         inMemoryTaskManager.createTask(2, subTask);
         inMemoryTaskManager.createTask(2, subTask1);
+        System.out.println(inMemoryTaskManager.getById(2, 6));
+        System.out.println(inMemoryTaskManager.getById(2, 7));
+        System.out.println(inMemoryTaskManager.getById(3, 5));
+
         inMemoryTaskManager.takeAllDataTask(2);
 
-        System.out.println(inMemoryTaskManager.takeSubTaskOfEpic(epicTask));
+        inMemoryTaskManager.takeAllDataTask(3);
 
+        System.out.println(inMemoryTaskManager.takeSubTaskOfEpic(epicTask));
+        System.out.println(inMemoryTaskManager.getHistory());
     }
 }

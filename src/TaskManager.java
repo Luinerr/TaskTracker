@@ -1,7 +1,9 @@
 import Tasks.EpicTask;
 import Tasks.SubTask;
+import Tasks.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface TaskManager {
     public void takeAllDataTask(int item);
@@ -18,5 +20,5 @@ public interface TaskManager {
 
     public ArrayList<SubTask> takeSubTaskOfEpic(EpicTask epicTask);
 
-    public void getHistory();
+    public List<Task> getHistory();
 }
