@@ -12,15 +12,14 @@ public class EpicTask extends Task{
 
     @Override
     public String toString() {
-        return "Tasks.EpicTask{" +
-                "idSubTasks=" + subTasks +
-                ", name='" + name + '\'' +
+        return "EpicTask{" +
+                "name='" + name + '\'' +
                 ", details='" + details + '\'' +
                 ", status=" + status +
                 '}';
     }
 
-    public ArrayList<SubTask> getIdSubTasks(EpicTask epicTask) {
+    public ArrayList<SubTask> getSubTasks(EpicTask epicTask) {
         return subTasks;
     }
 
