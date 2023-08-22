@@ -21,7 +21,7 @@ public class Main {
         inMemoryTaskManager.takeAllDataTask(1);
         inMemoryTaskManager.deleteById(1, 2);
         inMemoryTaskManager.takeAllDataTask(1);
-        inMemoryTaskManager.removeAllDataTask(1);
+        //inMemoryTaskManager.removeAllDataTask(1);
         inMemoryTaskManager.takeAllDataTask(1);
         EpicTask epicTask = new EpicTask("name", "abc");
 
@@ -42,9 +42,10 @@ public class Main {
         System.out.println(inMemoryTaskManager.getById(2, 7));
         System.out.println(inMemoryTaskManager.getById(3, 5));
 
-        inMemoryTaskManager.takeAllDataTask(2);
+        inMemoryTaskManager.takeAllDataTask(1);
         System.out.println(inMemoryTaskManager.takeId(3, epicTask));
 
+        inMemoryTaskManager.takeAllDataTask(2);
         inMemoryTaskManager.takeAllDataTask(3);
 
         System.out.println(inMemoryTaskManager.takeSubTaskOfEpic(epicTask));

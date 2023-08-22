@@ -19,15 +19,15 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void takeAllDataTask(int item) {
-        if (item == 1 || !dataTask.isEmpty()) {
+        if (item == 1 && !dataTask.isEmpty()) {
             for (int integer : dataTask.keySet()) {
                 System.out.println(dataTask.get(integer).toString());
             }
-        } else if (item == 2 || !dataSubTask.isEmpty()) {
+        } else if (item == 2 && !dataSubTask.isEmpty()) {
             for (int integer : dataSubTask.keySet()) {
                 System.out.println(dataSubTask.get(integer).toString());
             }
-        } else if (item == 3 || !dataEpicTask.isEmpty()) {
+        } else if (item == 3 && !dataEpicTask.isEmpty()) {
             for (int integer : dataEpicTask.keySet()) {
                 System.out.println(dataEpicTask.get(integer).toString());
             }
