@@ -5,10 +5,10 @@ public class Task {
     protected String details;
     protected int status;
 
-    public Task(String name, String details, int status) {
+    public Task(String name, String details) {
         this.name = name;
         this.details = details;
-        this.status = status;
+        this.status = 1;
     }
 
     @Override

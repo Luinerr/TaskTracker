@@ -2,9 +2,8 @@ package Tasks;
 
 public class SubTask extends Task{
     int idEpic;
-    public SubTask(String name, String details, int status) {
-        super(name, details, status);
-
+    public SubTask(String name, String details) {
+        super(name, details);
     }
 
     public void setIdEpic(int idEpic) {

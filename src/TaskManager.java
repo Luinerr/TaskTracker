@@ -1,3 +1,8 @@
+import Tasks.EpicTask;
+import Tasks.SubTask;
+
+import java.util.ArrayList;
+
 public interface TaskManager {
     public void takeAllDataTask(int item);
 
@@ -11,5 +16,7 @@ public interface TaskManager {
 
     int takeId(int item, Object obj);
 
-    public void takeSubTaskOfEpic();
+    public ArrayList<SubTask> takeSubTaskOfEpic(EpicTask epicTask);
+
+    public void getHistory();
 }

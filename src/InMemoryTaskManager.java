@@ -1,11 +1,13 @@
 import Tasks.*;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class InMemoryTaskManager implements TaskManager {
     private int taskId = 1;
-    protected HashMap<Integer, Task> dataTask;
-    protected HashMap<Integer, SubTask> dataSubTask;
-    protected HashMap<Integer, EpicTask> dataEpicTask;
+    private HashMap<Integer, Task> dataTask;
+    private HashMap<Integer, SubTask> dataSubTask;
+    private HashMap<Integer, EpicTask> dataEpicTask;
     InMemoryTaskManager() {
         dataTask = new HashMap<>();
         dataSubTask = new HashMap<>();
@@ -111,7 +113,6 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public int takeId(int item, Object obj) {
-        
         if (item == 1) {
             for (int i : dataTask.keySet()) {
                 if (dataTask.get(i).equals(obj)) {
@@ -140,7 +141,12 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void takeSubTaskOfEpic() {
+    public ArrayList<SubTask> takeSubTaskOfEpic(EpicTask epicTask) {
+        return epicTask.getIdSubTasks(epicTask);
+    }
+
+    @Override
+    public void getHistory() {
 
     }
 }
