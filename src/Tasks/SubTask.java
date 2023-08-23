@@ -19,4 +19,9 @@ public class SubTask extends Task{
                 ", status=" + status +
                 '}';
     }
+
+    @Override
+    public void updateStatus() {
+        super.updateStatus();
+    }
 }

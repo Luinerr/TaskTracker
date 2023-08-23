@@ -1,54 +1,30 @@
+import Manager.Managers;
+import Manager.TaskManager;
+import Manager.TaskLevel;
 import Tasks.*;
 import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-
-        InMemoryTaskManager inMemoryTaskManager = new InMemoryTaskManager();
+        TaskManager manager = Managers.getDefault();
         Task task = new Task("name", "abc");
-        inMemoryTaskManager.createTask(1, task);
-        task = new Task("name1", "abc1");
-        inMemoryTaskManager.createTask(1, task);
-        task = new Task("name2", "abc2");
-        inMemoryTaskManager.createTask(1, task);
-        task = new Task("name3", "abc3");
-        inMemoryTaskManager.createTask(1, task);
-        inMemoryTaskManager.getById(1, 1);
-        inMemoryTaskManager.getById(1, 2);
-        inMemoryTaskManager.getById(1, 1);
-        inMemoryTaskManager.getById(1, 1);
+        manager.createTask(TaskLevel.SIMPLE_TASK, task);
 
-        inMemoryTaskManager.takeAllDataTask(1);
-        inMemoryTaskManager.deleteById(1, 2);
-        inMemoryTaskManager.takeAllDataTask(1);
-        //inMemoryTaskManager.removeAllDataTask(1);
-        inMemoryTaskManager.takeAllDataTask(1);
-        EpicTask epicTask = new EpicTask("name", "abc");
+        SubTask subTask = new SubTask("sub", "abc");
+        manager.createTask(TaskLevel.SUB_TASK, subTask);
+        SubTask subTask1 = new SubTask("sub2", "abc");
+        manager.createTask(TaskLevel.SUB_TASK, subTask1);
 
-        SubTask subTask = new SubTask("sub1", "123");
-        SubTask subTask1 = new SubTask("sub2", "123");
-        ArrayList<SubTask> sub = new ArrayList<>();
-        sub.add(subTask);
-        sub.add(subTask1);
+        EpicTask epicTask = new EpicTask("Epic", "epicTask");
+        manager.createTask(TaskLevel.EPIC_TASK, epicTask);
+        manager.setSubTaskEpicTask(subTask, 4);
+        manager.setSubTaskEpicTask(subTask1, 4);
 
+        System.out.println(manager.getById(TaskLevel.SIMPLE_TASK, 1));
+        System.out.println(manager.getById(TaskLevel.SUB_TASK, 2));
+        System.out.println(manager.getById(TaskLevel.SUB_TASK, 3));
+        System.out.println(manager.getById(TaskLevel.EPIC_TASK, 4));
 
-
-        inMemoryTaskManager.createTask(3, epicTask);
-        epicTask.setSubTasks(sub, inMemoryTaskManager.takeId(3, epicTask));
-
-        inMemoryTaskManager.createTask(2, subTask);
-        inMemoryTaskManager.createTask(2, subTask1);
-        System.out.println(inMemoryTaskManager.getById(2, 6));
-        System.out.println(inMemoryTaskManager.getById(2, 7));
-        System.out.println(inMemoryTaskManager.getById(3, 5));
-
-        inMemoryTaskManager.takeAllDataTask(1);
-        System.out.println(inMemoryTaskManager.takeId(3, epicTask));
-
-        inMemoryTaskManager.takeAllDataTask(2);
-        inMemoryTaskManager.takeAllDataTask(3);
-
-        System.out.println(inMemoryTaskManager.takeSubTaskOfEpic(epicTask));
-        System.out.println(inMemoryTaskManager.getHistory());
+        System.out.println(manager.getHistory());
     }
 }

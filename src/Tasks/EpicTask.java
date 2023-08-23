@@ -29,4 +29,25 @@ public class EpicTask extends Task{
             item.setIdEpic(id);
         }
     }
+
+    public void setSubTasks(SubTask subTask, int id) {
+        subTasks.add(subTask);
+        subTask.setIdEpic(id);
+    }
+
+    @Override
+    public void updateStatus() {
+        boolean check = false;
+        for (SubTask item : subTasks) {
+            if (!status.equals(item.getStatus())) {
+                check = true;
+            } else {
+                check = false;
+                return;
+            }
+        }
+        if (check) {
+            status = subTasks.get(1).getStatus();
+        }
+    }
 }

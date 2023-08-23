@@ -1,14 +1,15 @@
 package Tasks;
 
+
 public class Task {
     protected String name;
     protected String details;
-    protected int status;
+    protected Status status;
 
     public Task(String name, String details) {
         this.name = name;
         this.details = details;
-        this.status = 1;
+        this.status = Status.NEW;
     }
 
     @Override
@@ -18,5 +19,17 @@ public class Task {
                 ", details='" + details + '\'' +
                 ", status=" + status +
                 '}';
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void updateStatus() {
+        if (status.equals(Status.NEW)) {
+            status = Status.IN_PROGRESS;
+        } else if (status.equals(Status.IN_PROGRESS)) {
+            status = Status.DONE;
+        }
     }
 }
