@@ -26,5 +26,6 @@ public class Main {
         System.out.println(manager.getById(TaskLevel.EPIC_TASK, 4));
 
         System.out.println(manager.getHistory());
+        System.out.println(manager.takeSubTaskOfEpic(epicTask));
     }
 }

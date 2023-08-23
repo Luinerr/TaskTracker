@@ -8,22 +8,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface TaskManager {
-    public List<Task> takeAllDataTask(TaskLevel taskLevel);
+    List<Task> takeAllDataTask(TaskLevel taskLevel);
 
-    public void removeAllDataTask(TaskLevel taskLevel);
+    void removeAllDataTask(TaskLevel taskLevel);
 
-    public Task getById(TaskLevel taskLevel, int id);
+    Task getById(TaskLevel taskLevel, int id);
 
-    public void deleteById(TaskLevel taskLevel, int id);
+    void deleteById(TaskLevel taskLevel, int id);
 
-    public void createTask(TaskLevel taskLevel, Object obj);
+    void createTask(TaskLevel taskLevel, Object obj);
 
     int takeId(TaskLevel taskLevel, Object obj);
 
-    public void updateTask(TaskLevel taskLevel, int id);
+    void updateTask(TaskLevel taskLevel, int id);
 
-    public void setSubTaskEpicTask(SubTask subTask, int id);
+    void setSubTaskEpicTask(SubTask subTask, int id);
 
-    public ArrayList<SubTask> takeSubTaskOfEpic(EpicTask epicTask);
-    ArrayList<Task> getHistory();
+    List<SubTask> takeSubTaskOfEpic(EpicTask epicTask);
+    List<Task> getHistory();
 }
