@@ -2,9 +2,6 @@ import Manager.Managers;
 import Manager.TaskManager;
 import Manager.TaskLevel;
 import Tasks.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {

@@ -14,6 +14,18 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     class CustomLinkedList{
+        public class Node{
+            public Task task;
+            public Node next;
+            public Node prev;
+
+            public Node(Node prev, Task task, Node next) {
+                this.task = task;
+                this.next = next;
+                this.prev = prev;
+            }
+        }
+
         private final Map<Integer, Node> historyMap = new HashMap<>();;
         private Node head;
         private Node tail;

@@ -2,7 +2,6 @@ package Manager;
 
 import Tasks.*;
 
-import javax.swing.plaf.nimbus.NimbusStyle;
 import java.util.*;
 
 public class InMemoryTaskManager implements TaskManager {

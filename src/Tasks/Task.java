@@ -1,6 +1,5 @@
 package Tasks;
 
-
 public class Task {
     protected String name;
     protected String details;
