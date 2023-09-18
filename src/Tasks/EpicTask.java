@@ -16,6 +16,7 @@ public class EpicTask extends Task{
                 "name='" + name + '\'' +
                 ", details='" + details + '\'' +
                 ", status=" + status +
+                ", id=" + id +
                 '}';
     }
 

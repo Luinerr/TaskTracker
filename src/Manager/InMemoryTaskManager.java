@@ -2,10 +2,8 @@ package Manager;
 
 import Tasks.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.swing.plaf.nimbus.NimbusStyle;
+import java.util.*;
 
 public class InMemoryTaskManager implements TaskManager {
     private int taskId = 1;
@@ -13,6 +11,8 @@ public class InMemoryTaskManager implements TaskManager {
     private final Map<Integer, SubTask> dataSubTask = new HashMap<>();
     private final Map<Integer, EpicTask> dataEpicTask = new HashMap<>();
     HistoryManager historyManager = Managers.getDefaultHistory();;
+
+
 
     @Override
     public List<Task> takeAllDataTask(TaskLevel taskLevel) {
@@ -31,17 +31,17 @@ public class InMemoryTaskManager implements TaskManager {
     public Task getById(TaskLevel taskLevel, int id) {
         if (taskLevel.equals(TaskLevel.SIMPLE_TASK) && !dataTask.isEmpty()) {
             if (dataTask.containsKey(id)) {
-                historyManager.add(dataTask.get(id));
+                historyManager.add(dataTask.get(id), id);
                 return dataTask.get(id);
             }
         } else if (taskLevel.equals(TaskLevel.SUB_TASK) && !dataSubTask.isEmpty()) {
             if (dataSubTask.containsKey(id)) {
-                historyManager.add(dataSubTask.get(id));
+                historyManager.add(dataSubTask.get(id), id);
                 return dataSubTask.get(id);
             }
         } else if (taskLevel.equals(TaskLevel.EPIC_TASK) && !dataEpicTask.isEmpty()) {
             if (dataEpicTask.containsKey(id)) {
-                historyManager.add(dataEpicTask.get(id));
+                historyManager.add(dataEpicTask.get(id), id);
                 return dataEpicTask.get(id);
             }
         }
@@ -52,10 +52,19 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void removeAllDataTask(TaskLevel taskLevel) {
         if (taskLevel.equals(TaskLevel.SIMPLE_TASK) && !dataTask.isEmpty()) {
+            for(Integer id : dataTask.keySet()) {
+                historyManager.remove(id);
+            }
             dataTask.clear();
         } else if (taskLevel.equals(TaskLevel.SUB_TASK) && !dataSubTask.isEmpty()) {
+            for(Integer id : dataSubTask.keySet()) {
+                historyManager.remove(id);
+            }
             dataSubTask.clear();
         } else if (taskLevel.equals(TaskLevel.EPIC_TASK) && !dataEpicTask.isEmpty()) {
+            for(Integer id : dataEpicTask.keySet()) {
+                historyManager.remove(id);
+            }
             dataEpicTask.clear();
         } else {
             return;
@@ -67,14 +76,17 @@ public class InMemoryTaskManager implements TaskManager {
         if (taskLevel.equals(TaskLevel.SIMPLE_TASK) && !dataTask.isEmpty()) {
             if (dataTask.containsKey(id)) {
                 dataTask.remove(id);
+                historyManager.remove(id);
             }
         } else if (taskLevel.equals(TaskLevel.SUB_TASK) && !dataSubTask.isEmpty()) {
             if (dataSubTask.containsKey(id)) {
                 dataSubTask.remove(id);
+                historyManager.remove(id);
             }
         } else if (taskLevel.equals(TaskLevel.EPIC_TASK) && !dataEpicTask.isEmpty()) {
             if (dataEpicTask.containsKey(id)) {
                 dataEpicTask.remove(id);
+                historyManager.remove(id);
             }
         } else {
             return;
@@ -82,15 +94,18 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void createTask(TaskLevel taskLevel, Object obj) {
+    public void createTask(TaskLevel taskLevel, Task task) {
         if (taskLevel.equals(TaskLevel.SIMPLE_TASK)) {
-            dataTask.put(taskId, (Task) obj);
+            dataTask.put(taskId, (Task) task);
+            task.setId(taskId);
             taskId++;
         } else if (taskLevel.equals(TaskLevel.SUB_TASK)) {
-            dataSubTask.put(taskId, (SubTask) obj);
+            dataSubTask.put(taskId, (SubTask) task);
+            task.setId(taskId);
             taskId++;
         } else if (taskLevel.equals(TaskLevel.EPIC_TASK)) {
-            dataEpicTask.put(taskId, (EpicTask) obj);
+            dataEpicTask.put(taskId, (EpicTask) task);
+            task.setId(taskId);
             taskId++;
         } else {
             return;
@@ -98,24 +113,24 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public int takeId(TaskLevel taskLevel, Object obj) {
+    public int takeId(TaskLevel taskLevel, Task task) {
         if (taskLevel.equals(TaskLevel.SIMPLE_TASK)) {
             for (int i : dataTask.keySet()) {
-                if (dataTask.get(i).equals(obj)) {
+                if (dataTask.get(i).equals(task)) {
                     return i;
                 }
                 return 0;
             }
         } else if (taskLevel.equals(TaskLevel.SUB_TASK)) {
             for (int i : dataSubTask.keySet()) {
-                if(dataSubTask.get(i).equals(obj)) {
+                if(dataSubTask.get(i).equals(task)) {
                     return i;
                 }
                 return 0;
             }
         } else if (taskLevel.equals(TaskLevel.EPIC_TASK)) {
             for (int i : dataEpicTask.keySet()) {
-                if(dataEpicTask.get(i).equals(obj)) {
+                if(dataEpicTask.get(i).equals(task)) {
                     return i;
                 }
                 return 0;
@@ -155,3 +170,5 @@ public class InMemoryTaskManager implements TaskManager {
         return historyManager.getHistory();
     }
 }
+
+

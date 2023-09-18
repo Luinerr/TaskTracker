@@ -3,29 +3,39 @@ import Manager.TaskManager;
 import Manager.TaskLevel;
 import Tasks.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         TaskManager manager = Managers.getDefault();
-        Task task = new Task("name", "abc");
-        manager.createTask(TaskLevel.SIMPLE_TASK, task);
 
-        SubTask subTask = new SubTask("sub", "abc");
-        manager.createTask(TaskLevel.SUB_TASK, subTask);
-        SubTask subTask1 = new SubTask("sub2", "abc");
+        EpicTask epicTask1 = new EpicTask("эпик1", "описание1");
+        manager.createTask(TaskLevel.EPIC_TASK, epicTask1);
+
+        EpicTask epicTask2 = new EpicTask("эпик2", "описание2");
+        SubTask subTask1 = new SubTask("Суб1", "описание1");
+        SubTask subTask2 = new SubTask("Суб2", "описание2");
+        SubTask subTask3 = new SubTask("Суб3", "описание3");
+        manager.createTask(TaskLevel.EPIC_TASK, epicTask2);
         manager.createTask(TaskLevel.SUB_TASK, subTask1);
+        manager.createTask(TaskLevel.SUB_TASK, subTask2);
+        manager.createTask(TaskLevel.SUB_TASK, subTask3);
 
-        EpicTask epicTask = new EpicTask("Epic", "epicTask");
-        manager.createTask(TaskLevel.EPIC_TASK, epicTask);
-        manager.setSubTaskEpicTask(subTask, 4);
-        manager.setSubTaskEpicTask(subTask1, 4);
+        manager.setSubTaskEpicTask(subTask1, epicTask2.getId());
+        manager.setSubTaskEpicTask(subTask2, epicTask2.getId());
+        manager.setSubTaskEpicTask(subTask3, epicTask2.getId());
 
-        System.out.println(manager.getById(TaskLevel.SIMPLE_TASK, 1));
-        System.out.println(manager.getById(TaskLevel.SUB_TASK, 2));
-        System.out.println(manager.getById(TaskLevel.SUB_TASK, 3));
-        System.out.println(manager.getById(TaskLevel.EPIC_TASK, 4));
+        manager.getById(TaskLevel.EPIC_TASK, 2);
+        manager.getById(TaskLevel.EPIC_TASK, 1);
+        manager.getById(TaskLevel.SUB_TASK, 3);
+        manager.getById(TaskLevel.EPIC_TASK, 2);
+
+        manager.deleteById(TaskLevel.EPIC_TASK, 1);
+        manager.getById(TaskLevel.EPIC_TASK, 1);
+
+        manager.deleteById(TaskLevel.EPIC_TASK, 2);
 
         System.out.println(manager.getHistory());
-        System.out.println(manager.takeSubTaskOfEpic(epicTask));
     }
 }

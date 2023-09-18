@@ -16,9 +16,9 @@ public interface TaskManager {
 
     void deleteById(TaskLevel taskLevel, int id);
 
-    void createTask(TaskLevel taskLevel, Object obj);
+    void createTask(TaskLevel taskLevel, Task task);
 
-    int takeId(TaskLevel taskLevel, Object obj);
+    int takeId(TaskLevel taskLevel, Task task);
 
     void updateTask(TaskLevel taskLevel, int id);
 

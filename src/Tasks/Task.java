@@ -5,6 +5,7 @@ public class Task {
     protected String name;
     protected String details;
     protected Status status;
+    protected int id;
 
     public Task(String name, String details) {
         this.name = name;
@@ -12,12 +13,29 @@ public class Task {
         this.status = Status.NEW;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public int getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
-        return "Tasks.Task{" +
+        return "Task{" +
                 "name='" + name + '\'' +
                 ", details='" + details + '\'' +
                 ", status=" + status +
+                ", id=" + id +
                 '}';
     }
 
