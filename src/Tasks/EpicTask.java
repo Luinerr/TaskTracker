@@ -2,12 +2,13 @@ package Tasks;
 
 import java.util.ArrayList;
 
-public class EpicTask extends Task{
+public class EpicTask extends SimpleTask {
     protected ArrayList<SubTask> subTasks;
 
     public EpicTask(String name, String details) {
         super(name, details);
         subTasks = new ArrayList<>();
+        typeTask = TypeTask.EPIC;
     }
 
     @Override
@@ -22,6 +23,7 @@ public class EpicTask extends Task{
 
     public ArrayList<SubTask> getSubTasks(EpicTask epicTask) {
         return subTasks;
+
     }
 
     public void setSubTasks(ArrayList<SubTask> subTasks, int id) {

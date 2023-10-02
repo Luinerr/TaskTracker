@@ -5,153 +5,169 @@ import Tasks.*;
 import java.util.*;
 
 public class InMemoryTaskManager implements TaskManager {
-    private int taskId = 1;
-    private final Map<Integer, Task> dataTask = new HashMap<>();
+    private int taskIdPrivate = 1;
+    private final Map<Integer, SimpleTask> dataTask = new HashMap<>();
     private final Map<Integer, SubTask> dataSubTask = new HashMap<>();
     private final Map<Integer, EpicTask> dataEpicTask = new HashMap<>();
-    HistoryManager historyManager = Managers.getDefaultHistory();;
+    HistoryManager historyManager = Managers.getDefaultHistory();
 
+    @Override
+    public List<SimpleTask> getAllSimpleTasks() {
+        return new ArrayList<>(dataTask.values());
+    }
+
+    @Override
+    public List<EpicTask> getAllEpicTasks() {
+        return new ArrayList<>(dataEpicTask.values());
+    }
+
+    @Override
+    public List<SubTask> getAllSubTasks() {
+        return new ArrayList<>(dataSubTask.values());
+    }
 
 
     @Override
-    public List<Task> takeAllDataTask(TaskLevel taskLevel) {
-        if (taskLevel.equals(TaskLevel.SIMPLE_TASK) && !dataTask.isEmpty()) {
-            return new ArrayList<>(dataTask.values());
-        } else if (taskLevel.equals(TaskLevel.SUB_TASK) && !dataSubTask.isEmpty()) {
-            return new ArrayList<>(dataSubTask.values());
-        } else if (taskLevel.equals(TaskLevel.EPIC_TASK) && !dataEpicTask.isEmpty()) {
-            return new ArrayList<>(dataEpicTask.values());
-        } else {
-            return null;
+    public void removeAllSimpleTask() {
+        if (!dataTask.isEmpty()) {
+            for (Integer id : dataTask.keySet()) {
+                historyManager.remove(id);
+            }
         }
     }
 
     @Override
-    public Task getById(TaskLevel taskLevel, int id) {
-        if (taskLevel.equals(TaskLevel.SIMPLE_TASK) && !dataTask.isEmpty()) {
-            if (dataTask.containsKey(id)) {
-                historyManager.add(dataTask.get(id), id);
-                return dataTask.get(id);
+    public void removeAllEpicTask() {
+        if (!dataEpicTask.isEmpty()) {
+            for (Integer id : dataEpicTask.keySet()) {
+                historyManager.remove(id);
             }
-        } else if (taskLevel.equals(TaskLevel.SUB_TASK) && !dataSubTask.isEmpty()) {
-            if (dataSubTask.containsKey(id)) {
-                historyManager.add(dataSubTask.get(id), id);
-                return dataSubTask.get(id);
+        }
+    }
+
+    @Override
+    public void removeAllSubTask() {
+        if (!dataSubTask.isEmpty()) {
+            for (Integer id : dataSubTask.keySet()) {
+                historyManager.remove(id);
             }
-        } else if (taskLevel.equals(TaskLevel.EPIC_TASK) && !dataEpicTask.isEmpty()) {
-            if (dataEpicTask.containsKey(id)) {
-                historyManager.add(dataEpicTask.get(id), id);
-                return dataEpicTask.get(id);
+        }
+    }
+
+    @Override
+    public SimpleTask getSimpleTask(int taskId) {
+        if (!dataTask.isEmpty()) {
+            if (dataTask.containsKey(taskId)) {
+                historyManager.add(dataTask.get(taskId), taskId);
+                return dataTask.get(taskId);
             }
         }
         return null;
     }
 
+    @Override
+    public EpicTask getEpicTask(int taskId) {
+        if (!dataEpicTask.isEmpty()) {
+            if (dataEpicTask.containsKey(taskId)) {
+                historyManager.add(dataEpicTask.get(taskId), taskId);
+                return dataEpicTask.get(taskId);
+            }
+        }
+        return null;
+    }
 
     @Override
-    public void removeAllDataTask(TaskLevel taskLevel) {
-        if (taskLevel.equals(TaskLevel.SIMPLE_TASK) && !dataTask.isEmpty()) {
-            for(Integer id : dataTask.keySet()) {
-                historyManager.remove(id);
+    public SubTask getSubTask(int taskId) {
+        if (!dataSubTask.isEmpty()) {
+            if (dataSubTask.containsKey(taskId)) {
+                historyManager.add(dataSubTask.get(taskId), taskId);
+                return dataSubTask.get(taskId);
             }
-            dataTask.clear();
-        } else if (taskLevel.equals(TaskLevel.SUB_TASK) && !dataSubTask.isEmpty()) {
-            for(Integer id : dataSubTask.keySet()) {
-                historyManager.remove(id);
+        }
+        return null;
+    }
+
+    @Override
+    public void removeSimpleTask(int taskId) {
+        if (!dataTask.isEmpty()) {
+            if (dataTask.containsKey(taskId)) {
+                dataTask.remove(taskId);
+                historyManager.remove(taskId);
             }
-            dataSubTask.clear();
-        } else if (taskLevel.equals(TaskLevel.EPIC_TASK) && !dataEpicTask.isEmpty()) {
-            for(Integer id : dataEpicTask.keySet()) {
-                historyManager.remove(id);
-            }
-            dataEpicTask.clear();
-        } else {
-            return;
         }
     }
 
     @Override
-    public void deleteById(TaskLevel taskLevel, int id) {
-        if (taskLevel.equals(TaskLevel.SIMPLE_TASK) && !dataTask.isEmpty()) {
-            if (dataTask.containsKey(id)) {
-                dataTask.remove(id);
-                historyManager.remove(id);
-            }
-        } else if (taskLevel.equals(TaskLevel.SUB_TASK) && !dataSubTask.isEmpty()) {
-            if (dataSubTask.containsKey(id)) {
-                dataSubTask.remove(id);
-                historyManager.remove(id);
-            }
-        } else if (taskLevel.equals(TaskLevel.EPIC_TASK) && !dataEpicTask.isEmpty()) {
-            if (dataEpicTask.containsKey(id)) {
-                dataEpicTask.remove(id);
-                historyManager.remove(id);
-            }
-        } else {
-            return;
-        }
-    }
-
-    @Override
-    public void createTask(TaskLevel taskLevel, Task task) {
-        if (taskLevel.equals(TaskLevel.SIMPLE_TASK)) {
-            dataTask.put(taskId, (Task) task);
-            task.setId(taskId);
-            taskId++;
-        } else if (taskLevel.equals(TaskLevel.SUB_TASK)) {
-            dataSubTask.put(taskId, (SubTask) task);
-            task.setId(taskId);
-            taskId++;
-        } else if (taskLevel.equals(TaskLevel.EPIC_TASK)) {
-            dataEpicTask.put(taskId, (EpicTask) task);
-            task.setId(taskId);
-            taskId++;
-        } else {
-            return;
-        }
-    }
-
-    @Override
-    public int takeId(TaskLevel taskLevel, Task task) {
-        if (taskLevel.equals(TaskLevel.SIMPLE_TASK)) {
-            for (int i : dataTask.keySet()) {
-                if (dataTask.get(i).equals(task)) {
-                    return i;
+    public void removeEpicTask(int taskId) {
+        if (!dataEpicTask.isEmpty()) {
+            if (dataEpicTask.containsKey(taskId)) {
+                if (dataEpicTask.get(taskId).getSubTasks(dataEpicTask.get(taskId)).size() != 0) {
+                    List<SubTask> subTask = this.takeSubTaskOfEpic(this.getEpicTask(taskId));
+                    for (SubTask sub : subTask) {
+                        removeSubTask(sub.getId());
+                    }
                 }
-                return 0;
+                dataEpicTask.remove(taskId);
+                historyManager.remove(taskId);
             }
-        } else if (taskLevel.equals(TaskLevel.SUB_TASK)) {
-            for (int i : dataSubTask.keySet()) {
-                if(dataSubTask.get(i).equals(task)) {
-                    return i;
-                }
-                return 0;
-            }
-        } else if (taskLevel.equals(TaskLevel.EPIC_TASK)) {
-            for (int i : dataEpicTask.keySet()) {
-                if(dataEpicTask.get(i).equals(task)) {
-                    return i;
-                }
-                return 0;
-            }
-        } else {
-            return 0;
         }
-        return 0;
     }
 
     @Override
-    public void updateTask(TaskLevel taskLevel, int id) {
-        if (taskLevel.equals(TaskLevel.SIMPLE_TASK)) {
-            dataTask.get(id).updateStatus();
-        } else if (taskLevel.equals(TaskLevel.SUB_TASK)) {
-            dataSubTask.get(id).updateStatus();
-        } else if (taskLevel.equals(TaskLevel.EPIC_TASK)) {
-            dataEpicTask.get(id).updateStatus();
-        } else {
-            return;
+    public void removeSubTask(int taskId) {
+        if (!dataSubTask.isEmpty()) {
+            if (dataSubTask.containsKey(taskId)) {
+                dataSubTask.remove(taskId);
+                historyManager.remove(taskId);
+            }
         }
     }
+
+    @Override
+    public void addSimpleTask(SimpleTask task) {
+        dataTask.put(taskIdPrivate, task);
+        task.setId(taskIdPrivate);
+        taskIdPrivate++;
+    }
+
+    @Override
+    public void addEpicTask(EpicTask task) {
+        dataEpicTask.put(taskIdPrivate, task);
+        task.setId(taskIdPrivate);
+        taskIdPrivate++;
+    }
+
+    @Override
+    public void addSubTask(SubTask task) {
+        dataSubTask.put(taskIdPrivate, task);
+        task.setId(taskIdPrivate);
+        taskIdPrivate++;
+    }
+
+    @Override
+    public void updateSimpleTask(SimpleTask task) {
+        if (dataTask.containsKey(task.getId())) {
+            dataTask.get(task.getId()).updateStatus();
+        }
+    }
+
+    @Override
+    public void updateEpicTask(EpicTask task) {
+        if (dataEpicTask.containsKey(task.getId())) {
+            dataEpicTask.get(task.getId()).updateStatus();
+        }
+    }
+
+    @Override
+    public void updateSubTask(SubTask task) {
+        if (dataSubTask.containsKey(task.getId())) {
+            dataSubTask.get(task.getId()).updateStatus();
+        }
+    }
+
+
+
+
 
     @Override
     public void setSubTaskEpicTask(SubTask subTask, int id) {
@@ -165,7 +181,7 @@ public class InMemoryTaskManager implements TaskManager {
         return epicTask.getSubTasks(epicTask);
     }
 
-    public List<Task> getHistory() {
+    public List<SimpleTask> getHistory() {
         return historyManager.getHistory();
     }
 }

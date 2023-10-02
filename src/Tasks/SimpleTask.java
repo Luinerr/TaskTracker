@@ -1,15 +1,17 @@
 package Tasks;
 
-public class Task {
+public class SimpleTask {
     protected String name;
     protected String details;
     protected Status status;
     protected int id;
+    protected TypeTask typeTask;
 
-    public Task(String name, String details) {
+    public SimpleTask(String name, String details) {
         this.name = name;
         this.details = details;
         this.status = Status.NEW;
+        this.typeTask = TypeTask.TASK;
     }
 
     public void setId(int id) {

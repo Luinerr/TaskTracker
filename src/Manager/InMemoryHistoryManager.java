@@ -1,6 +1,6 @@
 package Manager;
 
-import Tasks.Task;
+import Tasks.SimpleTask;
 
 import java.util.*;
 
@@ -15,12 +15,12 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     class CustomLinkedList{
         public class Node{
-            public Task task;
+            public SimpleTask simpleTask;
             public Node next;
             public Node prev;
 
-            public Node(Node prev, Task task, Node next) {
-                this.task = task;
+            public Node(Node prev, SimpleTask simpleTask, Node next) {
+                this.simpleTask = simpleTask;
                 this.next = next;
                 this.prev = prev;
             }
@@ -31,9 +31,9 @@ public class InMemoryHistoryManager implements HistoryManager {
         private Node tail;
         private int size = 0;
 
-        void linkLast(Task task) {
+        void linkLast(SimpleTask simpleTask) {
             final Node oldTail = tail;
-            final Node newNode = new Node(oldTail, task, null);
+            final Node newNode = new Node(oldTail, simpleTask, null);
             tail = newNode;
             if (oldTail == null) {
                 head = newNode;
@@ -41,26 +41,26 @@ public class InMemoryHistoryManager implements HistoryManager {
                 oldTail.next = newNode;
             }
 
-            if(historyMap.containsKey(task.getId())) {
-                removeNode(historyMap.get(task.getId()));
+            if(historyMap.containsKey(simpleTask.getId())) {
+                removeNode(historyMap.get(simpleTask.getId()));
             }
 
-            historyMap.put(task.getId(), newNode);
+            historyMap.put(simpleTask.getId(), newNode);
             size++;
         }
 
-        List<Task> getTasks() {
-            List<Task> list = new ArrayList<>();
+        List<SimpleTask> getTasks() {
+            List<SimpleTask> list = new ArrayList<>();
             Node newNode = this.head;
             for(int i = 0; i < this.size; i++) {
-                list.add(newNode.task);
+                list.add(newNode.simpleTask);
                 newNode = newNode.next;
             }
             return list;
         }
 
-        public Task getLast() {
-            return this.head.task;
+        public SimpleTask getLast() {
+            return this.head.simpleTask;
         }
 
         public void removeNode(Node node) {
@@ -123,12 +123,12 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     @Override
-    public void add(Task task, int id) {
-        historyList.linkLast(task);
+    public void add(SimpleTask simpleTask, int id) {
+        historyList.linkLast(simpleTask);
     }
 
     @Override
-    public ArrayList<Task> getHistory() {
+    public ArrayList<SimpleTask> getHistory() {
         return new ArrayList<>(historyList.getTasks());
     }
 
