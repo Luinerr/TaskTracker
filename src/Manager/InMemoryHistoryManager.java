@@ -123,7 +123,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     @Override
-    public void add(SimpleTask simpleTask, int id) {
+    public void add(SimpleTask simpleTask) {
         historyList.linkLast(simpleTask);
     }
 

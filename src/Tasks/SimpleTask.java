@@ -11,7 +11,7 @@ public class SimpleTask {
         this.name = name;
         this.details = details;
         this.status = Status.NEW;
-        this.typeTask = TypeTask.TASK;
+        this.typeTask = TypeTask.SIMPLETASK;
     }
 
     public void setId(int id) {
@@ -33,15 +33,19 @@ public class SimpleTask {
     @Override
     public String toString() {
         return "Task{" +
-                "name='" + name + '\'' +
+                "id=" + id + '\'' +
+                ", name='" + name + '\'' +
                 ", details='" + details + '\'' +
                 ", status=" + status +
-                ", id=" + id +
                 '}';
     }
 
     public Status getStatus() {
         return status;
+    }
+
+    public TypeTask getTypeTask() {
+        return typeTask;
     }
 
     public void updateStatus() {
@@ -50,5 +54,9 @@ public class SimpleTask {
         } else if (status.equals(Status.IN_PROGRESS)) {
             status = Status.DONE;
         }
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

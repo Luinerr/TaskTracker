@@ -8,22 +8,21 @@ public class EpicTask extends SimpleTask {
     public EpicTask(String name, String details) {
         super(name, details);
         subTasks = new ArrayList<>();
-        typeTask = TypeTask.EPIC;
+        typeTask = TypeTask.EPICTASK;
     }
 
     @Override
     public String toString() {
         return "EpicTask{" +
-                "name='" + name + '\'' +
+                "id=" + id + '\'' +
+                ", name='" + name + '\'' +
                 ", details='" + details + '\'' +
                 ", status=" + status +
-                ", id=" + id +
                 '}';
     }
 
-    public ArrayList<SubTask> getSubTasks(EpicTask epicTask) {
+    public ArrayList<SubTask> getSubTasks() {
         return subTasks;
-
     }
 
     public void setSubTasks(ArrayList<SubTask> subTasks, int id) {
@@ -36,6 +35,10 @@ public class EpicTask extends SimpleTask {
     public void setSubTasks(SubTask subTask, int id) {
         subTasks.add(subTask);
         subTask.setIdEpic(id);
+    }
+
+    public void setSubTasks(SubTask subTask) {
+        subTasks.add(subTask);
     }
 
     @Override

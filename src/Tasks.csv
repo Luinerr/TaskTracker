@@ -1,0 +1,13 @@
+id,type,name,status,description,epic
+15,SIMPLETASK,simp1,NEW,описание1,
+1,SUBTASK,суб1,IN_PROGRESS,описание1,4,
+2,SUBTASK,суб2,IN_PROGRESS,описание2,4,
+11,SUBTASK,суб3,NEW,описание3,4,
+16,EPICTASK,эпик3,NEW,описание3,
+4,EPICTASK,эпик1,NEW,описание1,
+5,EPICTASK,эпик2,NEW,описание2,
+9,EPICTASK,эпик3,NEW,описание3,
+10,EPICTASK,эпик3,NEW,описание3,
+12,EPICTASK,эпик3,NEW,описание3,
+
+5,2,4,10,

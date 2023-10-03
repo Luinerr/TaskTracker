@@ -18,11 +18,11 @@ public class SubTask extends SimpleTask {
     @Override
     public String toString() {
         return "SubTask{" +
-                "idEpic=" + idEpic +
+                "id=" + id + '\'' +
+                ", idEpic=" + idEpic + '\'' +
                 ", name='" + name + '\'' +
                 ", details='" + details + '\'' +
-                ", status=" + status +
-                ", id=" + id +
+                ", status=" + status + '\'' +
                 '}';
     }
 
